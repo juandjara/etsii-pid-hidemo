@@ -1,37 +1,30 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//
-//public class Coordinates : MonoBehaviour {
-//
-//	// Use this for initialization
-//	void Start () {
-//		
-//	}
-//	
-//	// Update is called once per frame
-//	void Update () {
-//		
-//	}
-//}
+﻿using UnityEngine;
 
-// Draws a line in the scene view going through a point 200 pixels
-// from the lower-left corner of the screen
-using UnityEngine;
-using System.Collections;
+// Convert the 2D position of the mouse into a
+// 3D position.  Display these on the game window.
 
-public class ExampleClass : MonoBehaviour
+public class CoordinatesScript : MonoBehaviour
 {
-	Camera camera;
+	
+	void OnGUI(){
+		
+		Vector3 p = new Vector3();//vector con 3 coordenadas
+		Camera  c = Camera.main;//
+		Event   e = Event.current;
+		Vector2 mousePos = new Vector2();
 
-	void Start()
-	{
-		camera = GetComponent<Camera>();
+		// Get the mouse position from Event.
+		// Note that the y position from Event is inverted.
+		mousePos.x = e.mousePosition.x;
+		mousePos.y = c.pixelHeight - e.mousePosition.y;
+
+		p = c.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, c.nearClipPlane));
+
+		GUILayout.BeginArea(new Rect(20, 20, 250, 120));
+		GUILayout.Label("Screen pixels: " + c.pixelWidth + ":" + c.pixelHeight);
+		GUILayout.Label("Mouse position: " + mousePos);
+		GUILayout.Label("World position: " + p.ToString("F3"));
+		GUILayout.EndArea();
 	}
 
-	void Update()
-	{
-		Ray ray = camera.ScreenPointToRay(new Vector3(200, 200, 0));
-		Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
-	}
 }
