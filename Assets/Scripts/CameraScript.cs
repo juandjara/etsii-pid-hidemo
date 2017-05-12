@@ -11,22 +11,14 @@ public class CameraScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-<<<<<<< HEAD
 
-
-=======
 		camTransform = GetComponent<Transform>();
 		Cursor.lockState = CursorLockMode.Locked;
->>>>>>> origin/master
 	}
 	
 	// Update is called once per frame
 	void Update () {
-<<<<<<< HEAD
 
-
-	
-=======
 		float delta = Time.deltaTime;
 		float horiz = Input.GetAxis("Horizontal");
 		float vert  = Input.GetAxis("Vertical");
@@ -41,6 +33,5 @@ public class CameraScript : MonoBehaviour {
 
 		float turnX = Input.GetAxis("Mouse X");
 		camTransform.Rotate(Vector3.up * delta * turnX * turnSpeed, Space.World);
->>>>>>> origin/master
 	}
 }
