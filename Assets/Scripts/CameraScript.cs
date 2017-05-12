@@ -13,7 +13,7 @@ public class CameraScript : MonoBehaviour {
 	void Start () {
 
 		camTransform = GetComponent<Transform>();
-		Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.lockState = CursorLockMode.Locked;
 	}
 	
 	// Update is called once per frame
