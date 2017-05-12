@@ -22,8 +22,15 @@ public class CameraScript : MonoBehaviour {
 		float delta = Time.deltaTime;
 		float horiz = Input.GetAxis("Horizontal");
 		float vert  = Input.GetAxis("Vertical");
+		float y = 0;
 
-		camTransform.Translate(new Vector3(horiz, 0, vert) * delta * moveSpeed);
+		if(Input.GetKey(KeyCode.Q)) {
+			y = 2;
+		} else if (Input.GetKey(KeyCode.E)) {
+			y = -2;
+		}
+
+		camTransform.Translate(new Vector3(horiz, y, vert) * delta * moveSpeed);
 
 		float turnY = Input.GetAxis("Mouse Y");
 		if(invertRotation) {

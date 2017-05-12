@@ -12,22 +12,41 @@ public class ObjetoOnClickScript : MonoBehaviour {
 
 		if(Physics.Raycast(ray, out hit)) {
 			if(Input.GetMouseButtonDown(0)) {
+				Vector3 position = Vector3.zero;
+
 				Vector3 objectCenter = hit.transform.position;
 				Vector3 fromCenterToClickPoint = hit.point - objectCenter;
 
-				float x = Mathf.RoundToInt (hit.point.x); 
-				float y = Mathf.RoundToInt (hit.point.y);
-				float z = Mathf.RoundToInt (hit.point.z);
-				
-				float xDirection = Mathf.Sign(fromCenterToClickPoint.x);
-				float yDirection = Mathf.Sign(fromCenterToClickPoint.y);
-				float zDirection = Mathf.Sign(fromCenterToClickPoint.z);
+				if(hit.transform.gameObject.tag == "Cube") {
+					float x = (objectCenter.x); 
+					float y = (objectCenter.y);
+					float z = (objectCenter.z);
+					
+					float xDirection = Mathf.Sign(fromCenterToClickPoint.x);
+					float yDirection = Mathf.Sign(fromCenterToClickPoint.y);
+					float zDirection = Mathf.Sign(fromCenterToClickPoint.z);
 
-				Vector3 direction = new Vector3(xDirection*0.5f, yDirection*0.5f, zDirection*0.5f);
+					if(Mathf.Abs(fromCenterToClickPoint.x) >= 0.5f) {
+						x += xDirection;
+					}
+					if(Mathf.Abs(fromCenterToClickPoint.y) >= 0.5f) {
+						y += yDirection;
+					}
+					if(Mathf.Abs(fromCenterToClickPoint.z) >= 0.5f) {
+						z += zDirection;
+					}
 
-				Vector3 position = new Vector3(x+0.5f,y+0.5f,z+0.5f);
+					position = new Vector3(x,y,z);
+				} else {
+					float x = Mathf.RoundToInt (hit.point.x); 
+					float y = Mathf.RoundToInt (hit.point.y);
+					float z = Mathf.RoundToInt (hit.point.z);
 
-				GameObject obj=Instantiate(prefab, position + direction, Quaternion.identity) as GameObject;
+					position = new Vector3(x,y+0.5f,z);					
+				}
+				Debug.Log("NEW CUBE AT "+position.ToString());				
+
+				GameObject obj=Instantiate(prefab, position, Quaternion.identity) as GameObject;
 			}
 		}
 	}
