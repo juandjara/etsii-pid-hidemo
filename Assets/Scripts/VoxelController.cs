@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjetoOnClickScript : MonoBehaviour {
+public class VoxelController : MonoBehaviour {
 
 	RaycastHit hit;
 	public GameObject prefab;
-	public string mode = "ADD";
-
-	public void SetMode(string newMode) {
-		mode = newMode;
-	}
 
 	void Update () {
 		// lanzamos un rayo desde la posicion del raton
@@ -18,14 +13,17 @@ public class ObjetoOnClickScript : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 		if(Physics.Raycast(ray, out hit)) {
-			if(Input.GetMouseButtonDown(1)) {
+			bool isCube = hit.transform.gameObject.tag == "Cube";
+			// si pulsamos el boton derecho borramos voxels
+			if(Input.GetMouseButtonDown(1) && isCube) {
 				GameObject.Destroy(hit.transform.gameObject);				
 			}
+			// si pulsamos el boton izquierdo añadimos voxels
 			if(Input.GetMouseButtonDown(0)) {
 				Vector3 position = Vector3.zero;
 				Vector3 objectCenter = hit.transform.position;
 
-				if(hit.transform.gameObject.tag == "Cube") {
+				if(isCube) {
 					// si hemos chocado con un cubo
 					// calculamos la distancia desde el punto de click
 					// hasta el centro del cubo
@@ -62,14 +60,7 @@ public class ObjetoOnClickScript : MonoBehaviour {
 					position = new Vector3(x,y+0.5f,z);					
 				}
 				Debug.Log("NEW CUBE AT "+position.ToString());				
-
 				GameObject obj=Instantiate(prefab, position, Quaternion.identity) as GameObject;					
-				/*
-				if(mode == "ADD") {
-				} else if(mode == "DELETE") {
-					GameObject.Destroy(hit.transform.gameObject);
-				}
-				*/
 			}
 		}
 	}
