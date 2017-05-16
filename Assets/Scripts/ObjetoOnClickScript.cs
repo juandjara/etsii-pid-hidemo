@@ -6,6 +6,11 @@ public class ObjetoOnClickScript : MonoBehaviour {
 
 	RaycastHit hit;
 	public GameObject prefab;
+	public string mode = "ADD";
+
+	public void SetMode(string newMode) {
+		mode = newMode;
+	}
 
 	void Update () {
 		// lanzamos un rayo desde la posicion del raton
@@ -13,6 +18,9 @@ public class ObjetoOnClickScript : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 		if(Physics.Raycast(ray, out hit)) {
+			if(Input.GetMouseButtonDown(1)) {
+				GameObject.Destroy(hit.transform.gameObject);				
+			}
 			if(Input.GetMouseButtonDown(0)) {
 				Vector3 position = Vector3.zero;
 				Vector3 objectCenter = hit.transform.position;
@@ -55,7 +63,13 @@ public class ObjetoOnClickScript : MonoBehaviour {
 				}
 				Debug.Log("NEW CUBE AT "+position.ToString());				
 
-				GameObject obj=Instantiate(prefab, position, Quaternion.identity) as GameObject;
+				GameObject obj=Instantiate(prefab, position, Quaternion.identity) as GameObject;					
+				/*
+				if(mode == "ADD") {
+				} else if(mode == "DELETE") {
+					GameObject.Destroy(hit.transform.gameObject);
+				}
+				*/
 			}
 		}
 	}
