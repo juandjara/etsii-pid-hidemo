@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VoxelController : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class VoxelController : MonoBehaviour {
 	int currentFrame = 0;
 
 	public GameObject prefab;
+	public Slider slider;
 
 	//void Start() {
 	//	loadFrame(0);
@@ -24,7 +26,8 @@ public class VoxelController : MonoBehaviour {
 	}
 
 	public void loadFrame(int frame) {
-		currentFrame = frame;
+		//currentFrame = frame;
+		currentFrame = (int) slider.value;
 		// destruye todos los cubos de la escena
 		GameObject[] cubes = GameObject.FindGameObjectsWithTag("Cube");
 		foreach(GameObject cube in cubes) {
@@ -41,13 +44,12 @@ public class VoxelController : MonoBehaviour {
 		foreach(string voxel in voxels) {
 			string[] coords = voxel.Split(" "[0]);
 			// no crees un cubo si hay menos de tres coordenadas
-			if(coords.Length < 3) {
-				return;
-			}
-			float x = float.Parse(coords[0]);
-			float y = float.Parse(coords[1]);
-			float z = float.Parse(coords[2]);
-			createCube(new Vector3(x,y,z));
+			if(coords.Length >= 3) {
+				float x = float.Parse(coords[0]);
+				float y = float.Parse(coords[1]);
+				float z = float.Parse(coords[2]);
+				createCube(new Vector3(x,y,z));
+			}			
 		}
 	}
 
