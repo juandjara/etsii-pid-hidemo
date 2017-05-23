@@ -19,6 +19,10 @@ public class CameraScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if(!Input.GetMouseButton(1)) {
+			return;
+		}
+
 		float delta = Time.deltaTime;
 		float horiz = Input.GetAxis("Horizontal");
 		float vert  = Input.GetAxis("Vertical");

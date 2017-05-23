@@ -108,11 +108,11 @@ public class VoxelController : MonoBehaviour {
 					// si no hemos chocado con un cubo asumimos
 					// que hemos chocado con el plano
 					// y simplemente redondeamos las coordenadas
-					float x = Mathf.RoundToInt (hit.point.x); 
-					float y = Mathf.RoundToInt (hit.point.y);
-					float z = Mathf.RoundToInt (hit.point.z);
+					float x = Mathf.FloorToInt (hit.point.x) + 0.5f; 
+					float y = 0.5f;
+					float z = Mathf.FloorToInt (hit.point.z) + 0.5f;
 
-					position = new Vector3(x,y+0.5f,z);					
+					position = new Vector3(x,y,z);					
 				}
 				Debug.Log("NEW CUBE AT "+position.ToString());
 				createCube(position);
