@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class VoxelController : MonoBehaviour {
 
 	RaycastHit hit;
-	int currentFrame = 0;
+	[System.NonSerialized]
+	public static int currentFrame = 0;
 
 	public GameObject prefab;
 	public Slider slider;
